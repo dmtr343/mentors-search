@@ -1,5 +1,7 @@
 <template>
-  <section>Filter</section>
+  <section>
+    <mentors-filter @change-filter="setFilter"></mentors-filter>
+  </section>
   <section>
     <base-card>
       <div class="controls">
@@ -25,18 +27,41 @@
 
 <script>
 import MentorItem from '../../components/mentors/MentorItem.vue';
-import BaseButton from '../../components/UI/BaseButton.vue';
+import MentorsFilter from '../../components/mentors/MentorsFilter.vue';
+
 export default {
   components: {
     MentorItem,
-    BaseButton,
+    MentorsFilter,
+  },
+  data() {
+    return {
+      areasFilter: {
+        frontend: true,
+        backend: true,
+        career: true,
+      },
+    };
   },
   computed: {
     filteredMentors() {
-      return this.$store.getters['mentors/getMentors'];
+      const keys = Object.keys(this.areasFilter);
+      const selectedAreas = keys.filter((key) => this.areasFilter[key]);
+      const result = this.$store.getters['mentors/getMentors'].filter(
+        (mentor) => {
+          return mentor.areas.some((area) => selectedAreas.includes(area));
+        }
+      );
+      return result;
     },
     hasMentors() {
       return this.$store.getters['mentors/hasMentors'];
+    },
+  },
+
+  methods: {
+    setFilter(updatedFilter) {
+      this.areasFilter = updatedFilter;
     },
   },
 };
