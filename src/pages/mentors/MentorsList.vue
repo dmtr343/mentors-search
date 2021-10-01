@@ -1,30 +1,35 @@
 <template>
   <section>Filter</section>
   <section>
-    <div class="controls">
-      <button>Refresh</button>
-      <router-link to="/register">Register as a Mentor</router-link>
-    </div>
-    <ul v-if="hasMentors">
-      <mentor-item
-        v-for="mentor in filteredMentors"
-        :key="mentor.id"
-        :id="mentor.id"
-        :first-name="mentor.firstName"
-        :last-name="mentor.lastName"
-        :areas="mentor.areas"
-        :rate="mentor.hourlyRate"
-      ></mentor-item>
-    </ul>
-    <h3 v-else>No registered mentors yet.</h3>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline">Refresh</base-button>
+        <base-button link to="/register">Register as a Mentor</base-button>
+      </div>
+      <ul v-if="hasMentors">
+        <mentor-item
+          v-for="mentor in filteredMentors"
+          :key="mentor.id"
+          :id="mentor.id"
+          :first-name="mentor.firstName"
+          :last-name="mentor.lastName"
+          :areas="mentor.areas"
+          :rate="mentor.hourlyRate"
+        ></mentor-item>
+      </ul>
+
+      <h3 v-else>No registered mentors yet.</h3>
+    </base-card>
   </section>
 </template>
 
 <script>
 import MentorItem from '../../components/mentors/MentorItem.vue';
+import BaseButton from '../../components/UI/BaseButton.vue';
 export default {
   components: {
     MentorItem,
+    BaseButton,
   },
   computed: {
     filteredMentors() {
