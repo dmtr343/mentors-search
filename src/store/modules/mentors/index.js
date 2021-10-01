@@ -11,7 +11,7 @@ export default {
           id: 'm1',
           firstName: 'John',
           lastName: 'Smith',
-          areas: ['frontend', 'backend'],
+          areas: ['frontend', 'backend', 'career'],
           description:
             "I'm John, I have been working as a freelancer for several years and have enough experience to help you refactor your code and give advice on how to avoid possible errors in your code.",
           hourlyRate: 35,
@@ -20,7 +20,7 @@ export default {
           id: 'm2',
           firstName: 'Sarah',
           lastName: 'Jones',
-          areas: ['frontend', 'career', 'soft skills'],
+          areas: ['frontend', 'career'],
           description:
             'I am a developer in a large company, and I can guide you in the right direction in your development in the front-end area, as well as give you help with employment.',
           hourlyRate: 30,

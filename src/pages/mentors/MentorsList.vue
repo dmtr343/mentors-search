@@ -6,16 +6,26 @@
       <router-link to="/register">Register as a Mentor</router-link>
     </div>
     <ul v-if="hasMentors">
-      <li v-for="mentor in filteredMentors" :key="mentor.id">
-        {{ mentor.firstName }}
-      </li>
+      <mentor-item
+        v-for="mentor in filteredMentors"
+        :key="mentor.id"
+        :id="mentor.id"
+        :first-name="mentor.firstName"
+        :last-name="mentor.lastName"
+        :areas="mentor.areas"
+        :rate="mentor.hourlyRate"
+      ></mentor-item>
     </ul>
     <h3 v-else>No registered mentors yet.</h3>
   </section>
 </template>
 
 <script>
+import MentorItem from '../../components/mentors/MentorItem.vue';
 export default {
+  components: {
+    MentorItem,
+  },
   computed: {
     filteredMentors() {
       return this.$store.getters['mentors/getMentors'];
@@ -28,17 +38,14 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Roboto', sans-serif;
-}
-
-body {
+ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
