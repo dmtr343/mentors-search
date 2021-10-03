@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav>
-      <h1><router-link to="/">Find your mentor</router-link></h1>
+      <h1><router-link to="/">Mentors Search</router-link></h1>
       <ul>
         <li><router-link to="/mentors">All mentors</router-link></li>
         <li><router-link to="/requests">Requests</router-link></li>

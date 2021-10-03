@@ -5,6 +5,16 @@ const store = createStore({
   modules: {
     mentors: mentorsModule,
   },
+  state() {
+    return {
+      userId: 'm3',
+    };
+  },
+  getters: {
+    getUserId(state) {
+      return state.userId;
+    },
+  },
 });
 
 export default store;

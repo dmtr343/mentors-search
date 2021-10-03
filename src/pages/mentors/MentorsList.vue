@@ -6,7 +6,9 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline">Refresh</base-button>
-        <base-button link to="/register">Register as a Mentor</base-button>
+        <base-button v-if="!isMentor" link to="/register"
+          >Register as a Mentor</base-button
+        >
       </div>
       <ul v-if="hasMentors">
         <mentor-item
@@ -56,6 +58,9 @@ export default {
     },
     hasMentors() {
       return this.$store.getters['mentors/hasMentors'];
+    },
+    isMentor() {
+      return this.$store.getters['mentors/isMentor'];
     },
   },
 
