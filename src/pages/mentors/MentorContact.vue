@@ -3,11 +3,11 @@
     <form @submit.prevent="sumbitForm">
       <div class="form-control">
         <label for="email">Email:</label>
-        <input v-model.trim="email" type="email" id="email" />
+        <input v-model.trim="userEmail" type="email" id="email" />
       </div>
       <div class="form-control">
         <label for="message">Message</label>
-        <textarea v-model.trim="message" id="message" rows="7"></textarea>
+        <textarea v-model.trim="userMessage" id="message" rows="7"></textarea>
       </div>
       <p class="errors" v-if="!isFormValid">
         Check that email is correct and message is not empty.
@@ -23,8 +23,8 @@
 export default {
   data() {
     return {
-      email: '',
-      message: '',
+      userEmail: '',
+      userMessage: '',
       isFormValid: true,
     };
   },
@@ -32,13 +32,19 @@ export default {
     sumbitForm() {
       this.isFormValid = true;
       if (
-        this.email === '' ||
-        !this.email.includes('@') ||
-        this.message === ''
+        this.userEmail === '' ||
+        !this.userEmail.includes('@') ||
+        this.userMessage === ''
       ) {
         this.isFormValid = false;
         return;
       }
+      this.$store.dispatch('requests/contactMentor', {
+        userEmail: this.userEmail,
+        userMessage: this.userMessage,
+        mentorId: this.$route.params.id,
+      });
+      this.$router.replace('/mentors');
     },
   },
 };
