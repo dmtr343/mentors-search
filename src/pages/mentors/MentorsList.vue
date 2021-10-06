@@ -5,7 +5,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
+        <base-button mode="outline" @click="loadMentors">Refresh</base-button>
         <base-button v-if="!isMentor" link to="/register"
           >Register as a Mentor</base-button
         >
@@ -68,6 +68,12 @@ export default {
     setFilter(updatedFilter) {
       this.areasFilter = updatedFilter;
     },
+    loadMentors() {
+      this.$store.dispatch('mentors/loadMentors');
+    },
+  },
+  created() {
+    this.loadMentors();
   },
 };
 </script>
