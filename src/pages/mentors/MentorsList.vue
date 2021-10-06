@@ -1,4 +1,11 @@
 <template>
+  <base-dialog
+    :show="!!error"
+    @close="handleError"
+    title="An error has occured."
+  >
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <mentors-filter @change-filter="setFilter"></mentors-filter>
   </section>
@@ -41,6 +48,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
       areasFilter: {
         frontend: true,
         backend: true,
@@ -73,8 +81,15 @@ export default {
     },
     async loadMentors() {
       this.isLoading = true;
-      await this.$store.dispatch('mentors/loadMentors');
+      try {
+        await this.$store.dispatch('mentors/loadMentors');
+      } catch (error) {
+        this.error = error.message || 'An error has occured.';
+      }
       this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
   created() {

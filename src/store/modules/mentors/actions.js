@@ -29,7 +29,8 @@ export default {
     const responseData = await response.json();
 
     if (!response.ok) {
-      // error TODO
+      const error = new Error(responseData.message || 'Failed to load data.');
+      throw error;
     }
 
     const mentors = [];
