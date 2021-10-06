@@ -1,41 +1,43 @@
 <template>
-  <base-dialog
-    :show="!!error"
-    @close="handleError"
-    title="An error has occured."
-  >
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <mentors-filter @change-filter="setFilter"></mentors-filter>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button mode="outline" @click="loadMentors(true)"
-          >Refresh</base-button
-        >
-        <base-button v-if="!isMentor && !isLoading" link to="/register"
-          >Register as a Mentor</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasMentors">
-        <mentor-item
-          v-for="mentor in filteredMentors"
-          :key="mentor.id"
-          :id="mentor.id"
-          :first-name="mentor.firstName"
-          :last-name="mentor.lastName"
-          :areas="mentor.areas"
-          :rate="mentor.hourlyRate"
-        ></mentor-item>
-      </ul>
-      <h3 v-else>No registered mentors yet.</h3>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog
+      :show="!!error"
+      @close="handleError"
+      title="An error has occured."
+    >
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <mentors-filter @change-filter="setFilter"></mentors-filter>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline" @click="loadMentors(true)"
+            >Refresh</base-button
+          >
+          <base-button v-if="!isMentor && !isLoading" link to="/register"
+            >Register as a Mentor</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasMentors">
+          <mentor-item
+            v-for="mentor in filteredMentors"
+            :key="mentor.id"
+            :id="mentor.id"
+            :first-name="mentor.firstName"
+            :last-name="mentor.lastName"
+            :areas="mentor.areas"
+            :rate="mentor.hourlyRate"
+          ></mentor-item>
+        </ul>
+        <h3 v-else>No registered mentors yet.</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>

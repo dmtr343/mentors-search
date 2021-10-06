@@ -1,4 +1,5 @@
 <template>
+<div>
   <template v-if="selectedMentor">
     <section>
       <base-card>
@@ -33,6 +34,7 @@
       </base-card>
     </section>
   </template>
+  </div>
 </template>
 
 <script>
