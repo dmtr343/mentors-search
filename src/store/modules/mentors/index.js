@@ -6,6 +6,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      lastFetchedTime: null,
       mentors: [
         {
           id: 'm1',

@@ -22,7 +22,11 @@ export default {
 
     context.commit('addMentor', mentorData);
   },
-  async loadMentors(context) {
+  async loadMentors(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
+
     const response = await fetch(
       `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/mentors.json`
     );
@@ -47,5 +51,6 @@ export default {
       mentors.push(mentor);
     }
     context.commit('setMentors', mentors);
+    context.commit('setFetchTimestamp');
   },
 };
