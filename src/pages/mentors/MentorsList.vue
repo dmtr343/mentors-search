@@ -6,11 +6,14 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline" @click="loadMentors">Refresh</base-button>
-        <base-button v-if="!isMentor" link to="/register"
+        <base-button v-if="!isMentor && !isLoading" link to="/register"
           >Register as a Mentor</base-button
         >
       </div>
-      <ul v-if="hasMentors">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasMentors">
         <mentor-item
           v-for="mentor in filteredMentors"
           :key="mentor.id"
@@ -21,7 +24,6 @@
           :rate="mentor.hourlyRate"
         ></mentor-item>
       </ul>
-
       <h3 v-else>No registered mentors yet.</h3>
     </base-card>
   </section>
@@ -38,6 +40,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       areasFilter: {
         frontend: true,
         backend: true,
@@ -57,7 +60,7 @@ export default {
       return result;
     },
     hasMentors() {
-      return this.$store.getters['mentors/hasMentors'];
+      return !this.isLoading && this.$store.getters['mentors/hasMentors'];
     },
     isMentor() {
       return this.$store.getters['mentors/isMentor'];
@@ -68,8 +71,10 @@ export default {
     setFilter(updatedFilter) {
       this.areasFilter = updatedFilter;
     },
-    loadMentors() {
-      this.$store.dispatch('mentors/loadMentors');
+    async loadMentors() {
+      this.isLoading = true;
+      await this.$store.dispatch('mentors/loadMentors');
+      this.isLoading = false;
     },
   },
   created() {
