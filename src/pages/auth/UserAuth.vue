@@ -1,34 +1,46 @@
 <template>
-  <base-card>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model.trim="email" />
-      </div>
-      <div class="form-control">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model.trim="password" />
-      </div>
-      <p class="errors" v-if="!isFormValid">
-        Check that email is correct and password must contain at least 6
-        characters.
-      </p>
-      <base-button>{{ submitFormButtonText }}</base-button>
-      <base-button type="button" mode="flat" @click="switchForm">{{
-        switchFormButtonText
-      }}</base-button>
-    </form>
-  </base-card>
+  <div>
+    <base-dialog :show="!!error" title="An error occured" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <base-dialog :show="isLoading" title="Autheticating..." fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
+    <base-card>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="email">Email:</label>
+          <input type="email" id="email" v-model.trim="email" />
+        </div>
+        <div class="form-control">
+          <label for="password">Password:</label>
+          <input type="password" id="password" v-model.trim="password" />
+        </div>
+        <p class="errors" v-if="!isFormValid">
+          Check that email is correct and password must contain at least 6
+          characters.
+        </p>
+        <base-button>{{ submitFormButtonText }}</base-button>
+        <base-button type="button" mode="flat" @click="switchForm">{{
+          switchFormButtonText
+        }}</base-button>
+      </form>
+    </base-card>
+  </div>
 </template>
 
 <script>
+import BaseSpinner from '../../components/UI/BaseSpinner.vue';
 export default {
+  components: { BaseSpinner },
   data() {
     return {
       email: '',
       password: '',
       isFormValid: true,
       openedForm: 'login',
+      isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -40,7 +52,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.isFormValid = true;
       if (
         this.email === '' ||
@@ -51,7 +63,22 @@ export default {
         return;
       }
 
-      //
+      this.isLoading = true;
+
+      try {
+        if (this.openedForm === 'login') {
+          //
+        } else {
+          await this.$store.dispatch('register', {
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (err) {
+        this.error = err.message || 'Failed to authenticate, try later.';
+      }
+
+      this.isLoading = false;
     },
     switchForm() {
       if (this.openedForm === 'login') {
@@ -59,6 +86,9 @@ export default {
       } else {
         this.openedForm = 'login';
       }
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
