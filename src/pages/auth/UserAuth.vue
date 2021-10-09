@@ -65,14 +65,16 @@ export default {
 
       this.isLoading = true;
 
+      const userData = {
+        email: this.email,
+        password: this.password,
+      };
+
       try {
         if (this.openedForm === 'login') {
-          //
+          await this.$store.dispatch('login', userData);
         } else {
-          await this.$store.dispatch('register', {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$store.dispatch('register', userData);
         }
       } catch (err) {
         this.error = err.message || 'Failed to authenticate, try later.';
