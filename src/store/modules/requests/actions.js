@@ -28,8 +28,9 @@ export default {
   },
   async loadRequests(context) {
     const mentorId = context.rootGetters.getUserId;
+    const token = context.rootGetters.getToken;
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${mentorId}.json`
+      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${mentorId}.json?auth=${token}`
     );
     const responseData = await response.json();
     if (!response.ok) {
