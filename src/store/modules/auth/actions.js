@@ -25,6 +25,13 @@ export default {
       tokenExpiration: responseData.expiresIn,
     });
   },
+  logout(context) {
+    context.commit('setUser', {
+      token: null,
+      userId: null,
+      tokenExpiration: null,
+    });
+  },
   async register(context, userData) {
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBFqZ9jT-_44q8sLps8OPIAlbMbuf58SRk',

@@ -1,15 +1,10 @@
 export default {
   async contactMentor(context, formData) {
-    const newRequest = {
-      userEmail: formData.userEmail,
-      userMessage: formData.userMessage,
-    };
-
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${newRequest.mentorId}.json`,
+      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${formData.mentorId}.json`,
       {
         method: 'POST',
-        body: JSON.stringify(newRequest),
+        body: JSON.stringify(formData),
       }
     );
 
@@ -21,8 +16,10 @@ export default {
       throw error;
     }
 
-    newRequest.id = responseData.name;
-    newRequest.mentorId = formData.mentorId;
+    const newRequest = {
+      ...formData,
+      id: responseData.name,
+    };
 
     context.commit('addRequest', newRequest);
   },
