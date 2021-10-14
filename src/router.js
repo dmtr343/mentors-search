@@ -7,6 +7,7 @@ import MentorContact from './pages/mentors/MentorContact.vue';
 import RequestsRecieved from './pages/requests/RequestsRecieved.vue';
 import UserAuth from './pages/auth/UserAuth.vue';
 import NotFound from './pages/NotFound.vue';
+import store from './store/index';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,11 +20,29 @@ const router = createRouter({
       props: true,
       children: [{ path: 'contact', component: MentorContact }],
     },
-    { path: '/register', component: MentorRegistration },
-    { path: '/requests', component: RequestsRecieved },
-    { path: '/auth', component: UserAuth },
+    {
+      path: '/register',
+      component: MentorRegistration,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/requests',
+      component: RequestsRecieved,
+      meta: { requiresAuth: true },
+    },
+    { path: '/auth', component: UserAuth, meta: { requiresUnauth: true } },
     { path: '/:notFound(.*)', component: NotFound },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !store.getters.isAutheticated) {
+    next('/auth');
+  } else if (to.meta.requiresUnauth && store.getters.isAutheticated) {
+    next('/mentors');
+  } else {
+    next();
+  }
 });
 
 export default router;
