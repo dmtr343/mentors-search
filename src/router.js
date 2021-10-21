@@ -36,9 +36,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.getters.isAutheticated) {
+  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
     next('/auth');
-  } else if (to.meta.requiresUnauth && store.getters.isAutheticated) {
+  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
     next('/mentors');
   } else {
     next();

@@ -8,4 +8,7 @@ export default {
   isAuthenticated(state) {
     return !!state.token;
   },
+  getLogoutTimerId(state) {
+    return state.logoutTimerId;
+  },
 };
