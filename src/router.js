@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import MentorsList from './pages/mentors/MentorsList.vue';
-import MentorDetails from './pages/mentors/MentorDetails.vue';
-import MentorRegistration from './pages/mentors/MentorRegistration.vue';
-import MentorContact from './pages/mentors/MentorContact.vue';
-import RequestsRecieved from './pages/requests/RequestsRecieved.vue';
-import UserAuth from './pages/auth/UserAuth.vue';
 import NotFound from './pages/NotFound.vue';
 import store from './store/index';
+
+const MentorDetails = () => import('./pages/mentors/MentorDetails.vue');
+const MentorRegistration = () =>
+  import('./pages/mentors/MentorRegistration.vue');
+const MentorContact = () => import('./pages/mentors/MentorContact.vue');
+const UserAuth = () => import('./pages/auth/UserAuth.vue');
+const RequestsRecieved = () => import('./pages/requests/RequestsRecieved.vue');
 
 const router = createRouter({
   history: createWebHistory(),
