@@ -31,7 +31,7 @@ export default {
 }
 
 .backend {
-  background-color: #306935;
+  background-color: #0c5312;
   color: white;
 }
 
