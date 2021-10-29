@@ -33,6 +33,7 @@ export default {
 
 html {
   font-family: 'Roboto', sans-serif;
+  overflow-y: scroll;
 }
 
 body {

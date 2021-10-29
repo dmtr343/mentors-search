@@ -61,6 +61,7 @@ export default {
       error: null,
       selectedMentor: null,
       isLoading: false,
+      showContactLink: null,
     };
   },
   computed: {
@@ -68,7 +69,11 @@ export default {
       return this.selectedMentor.firstName + ' ' + this.selectedMentor.lastName;
     },
     contactLink() {
-      return this.$route.path + '/contact';
+      if (this.$route.path.includes('/contact')) {
+        return this.$route.path;
+      } else {
+        return this.$route.path + '/contact';
+      }
     },
   },
   async created() {
@@ -97,6 +102,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
