@@ -50,6 +50,7 @@ button:hover,
 button:active {
   background-color: #5f9110;
   border-color: #2d6664;
+  transition: background-color 0.15s linear;
 }
 
 .flat {
@@ -64,10 +65,25 @@ button:active {
   color: #2d6664;
 }
 
+.nav {
+  background-color: transparent;
+  width: 100%;
+  border-radius: 0;
+  padding: 1.5rem;
+  margin: 0;
+  color: #14f81f;
+  border: none;
+}
+
 .flat:hover,
 .flat:active,
 .outline:hover,
 .outline:active {
   background-color: #edd2ff;
+}
+
+.nav:hover,
+.nav:active {
+  background-color: #186600;
 }
 </style>
