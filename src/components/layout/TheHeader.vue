@@ -160,5 +160,17 @@ export default {
     display: block;
     cursor: pointer;
   }
+
+  .nav-toggler.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggler.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .nav-toggler.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }
 </style>
