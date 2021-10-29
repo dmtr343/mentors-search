@@ -1,18 +1,22 @@
 <template>
   <the-header></the-header>
-  <router-view v-slot="slotProps">
-    <transition name="route" mode="out-in">
-      <component :is="slotProps.Component"></component>
-    </transition>
-  </router-view>
+  <the-main>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"></component>
+      </transition>
+    </router-view>
+  </the-main>
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
+import TheMain from './components/layout/TheMain.vue';
 
 export default {
   components: {
     TheHeader,
+    TheMain,
   },
   created() {
     this.$store.dispatch('autoLogin');
