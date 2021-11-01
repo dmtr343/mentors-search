@@ -7,7 +7,12 @@
       <base-spinner></base-spinner>
     </base-dialog>
     <base-card>
-      <form @submit.prevent="submitForm">
+      <form
+        @animationend="animated = false"
+        :class="{ fade: animated }"
+        @keyup.enter="submitForm"
+        @submit.prevent=""
+      >
         <div class="form-control">
           <label for="email">Email:</label>
           <input type="email" id="email" v-model.trim="email" />
@@ -20,10 +25,18 @@
           Check that email is correct and password must contain at least 6
           characters.
         </p>
-        <base-button>{{ submitFormButtonText }}</base-button>
-        <base-button type="button" mode="flat" @click="switchForm">{{
-          switchFormButtonText
-        }}</base-button>
+        <base-button
+          type="button"
+          :mode="isLoginActive ? '' : 'flat'"
+          @click="handleFormClick('login')"
+          >Log in</base-button
+        >
+        <base-button
+          type="button"
+          :mode="isRegisterActive ? '' : 'flat'"
+          @click="handleFormClick('register')"
+          >Register</base-button
+        >
       </form>
     </base-card>
   </div>
@@ -41,17 +54,25 @@ export default {
       openedForm: 'login',
       isLoading: false,
       error: null,
+      animated: false,
     };
   },
   computed: {
-    submitFormButtonText() {
-      return this.openedForm === 'login' ? 'Log in' : 'Register';
+    isLoginActive() {
+      return this.openedForm === 'login';
     },
-    switchFormButtonText() {
-      return this.openedForm === 'login' ? 'Register' : 'Log in';
+    isRegisterActive() {
+      return this.openedForm === 'register';
     },
   },
   methods: {
+    handleFormClick(button) {
+      if (this.openedForm === button) {
+        this.submitForm();
+      } else {
+        this.switchForm();
+      }
+    },
     async submitForm() {
       this.isFormValid = true;
       if (
@@ -86,6 +107,8 @@ export default {
       this.isLoading = false;
     },
     switchForm() {
+      this.isFormValid = true;
+      this.animated = true;
       if (this.openedForm === 'login') {
         this.openedForm = 'register';
       } else {
@@ -94,6 +117,9 @@ export default {
     },
     handleError() {
       this.error = null;
+    },
+    animate() {
+      this.animated = true;
     },
   },
 };
@@ -107,6 +133,29 @@ form {
 
 .form-control {
   margin: 0.5rem 0;
+}
+
+.fade {
+  animation: 0.4s fadeOutIn ease-in-out;
+}
+
+@keyframes fadeOutIn {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  49% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 label {
