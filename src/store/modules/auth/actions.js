@@ -19,8 +19,19 @@ export default {
     const responseData = await response.json();
 
     if (!response.ok) {
+      let errorDescription;
+      if (
+        responseData.error.message === 'EMAIL_NOT_FOUND' ||
+        responseData.error.message === 'INVALID_PASSWORD'
+      ) {
+        errorDescription = 'Incorrect username or password.';
+      } else if (responseData.error.message === 'EMAIL_EXISTS') {
+        errorDescription = 'Email is already registered.';
+      } else {
+        errorDescription = 'Failed to authenticate.';
+      }
       const error = new Error(
-        responseData.message || 'Failed to authenticate.'
+        errorDescription
       );
       throw error;
     }
