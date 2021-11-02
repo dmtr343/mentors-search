@@ -1,24 +1,19 @@
-# mentors-search
+# Mentors Search
 
-## Project setup
+### Live demo
+https://mentors-search-dmtr343.web.app/mentors
+
+
+### Installation
+
+If necessary, specify the configuration data from your Firebase in `.env` file, or leave the existing one. 
+
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Description
+A single-page application that allows you to search for mentors and send them messages, or register yourself as a mentor, indicating your areas of expertise.
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Technologies used: Vue, Vuex, Vue-Router, Firebase (Realtime database, Authentication).
