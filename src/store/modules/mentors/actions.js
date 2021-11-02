@@ -9,7 +9,7 @@ export default {
     const token = context.rootGetters.getToken;
 
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/mentors/${userId}.json?auth=${token}`,
+      `${process.env.VUE_APP_FIREBASE_URL}/mentors/${userId}.json?auth=${token}`,
       {
         method: 'PUT',
         body: JSON.stringify(mentorData),
@@ -30,7 +30,7 @@ export default {
     }
 
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/mentors.json`
+      `${process.env.VUE_APP_FIREBASE_URL}/mentors.json`
     );
     const responseData = await response.json();
 

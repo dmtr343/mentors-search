@@ -1,7 +1,7 @@
 export default {
   async contactMentor(context, formData) {
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${formData.mentorId}.json`,
+      `${process.env.VUE_APP_FIREBASE_URL}/requests/${formData.mentorId}.json`,
       {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -27,7 +27,7 @@ export default {
     const mentorId = context.rootGetters.getUserId;
     const token = context.rootGetters.getToken;
     const response = await fetch(
-      `https://http-demo-ef3a0-default-rtdb.europe-west1.firebasedatabase.app/requests/${mentorId}.json?auth=${token}`
+      `${process.env.VUE_APP_FIREBASE_URL}/requests/${mentorId}.json?auth=${token}`
     );
     const responseData = await response.json();
     if (!response.ok) {
