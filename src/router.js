@@ -35,6 +35,9 @@ const router = createRouter({
     { path: '/auth', component: UserAuth, meta: { requiresUnauth: true } },
     { path: '/:notFound(.*)', component: NotFound },
   ],
+  scrollBehavior() {
+      return { top: 0 }
+  },
 });
 
 router.beforeEach((to, from, next) => {
