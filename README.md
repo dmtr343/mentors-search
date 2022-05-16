@@ -1,19 +1,18 @@
 # Mentors Search
 
-### Live demo
+### Онлайн-просмотр
 https://mentors-search-dmtr343.web.app/mentors
 
+### Описание
+Одностраничное приложение вида доски объявлений, позволяющее находить наставников и отправлять им сообщения. Также возможно самому зарегистрироваться в качестве наставника, указав свои знания и умения.
 
-### Installation
+### Установка
 
-If necessary, specify the configuration data from your Firebase in `.env` file, or leave the existing one. 
+Если необходимо, установить конфигурационные данные от своей Firebase в `.env` файле, либо же оставить существующие.
 
 ```
 npm install
 npm run serve
 ```
 
-### Description
-A single-page application that allows you to search for mentors and send them messages, or register yourself as a mentor, indicating your areas of expertise.
-
-Technologies used: Vue, Vuex, Vue-Router, Firebase (Realtime database, Authentication).
+Использованные технологии: Vue, Vuex, Vue-Router, Firebase (Realtime database, Authentication).
